@@ -46,7 +46,7 @@ EC2 Instance
 ---
 
 ## 📦 Repository Structure
-
+```
 aiops-self-healing-cloud/
 │
 ├── app/
@@ -68,9 +68,7 @@ aiops-self-healing-cloud/
 │ └── cloudwatch_alarm.png
 │
 └── README.md
-
-
----
+```
 
 ## 🧠 What This System Does
 
@@ -123,9 +121,8 @@ It:
   "incident_count": 4,
   "cooldown": true
 }
-##🗄️ Incident Memory (DynamoDB)
-The system stores every incident:
-
+```
+## 🗄️ Incident Memory (DynamoDB)
 Field	Purpose
 incident_id	Alarm name
 last_seen	Timestamp
@@ -138,7 +135,7 @@ Alert suppression
 
 Progressive escalation
 
-##⏳ Cooldown Suppression
+## ⏳ Cooldown Suppression
 Repeated incidents within a time window are automatically suppressed.
 
 This prevents:
@@ -149,11 +146,7 @@ Noise
 
 Unnecessary remediation
 
-Real-world SRE tools behave exactly like this.
-
-##🔁 Progressive Remediation Strategy
-The system heals itself gradually and safely.
-
+## 🔁 Progressive Remediation Strategy
 Incident Count	Action
 1	WARN
 2	SUPPRESS
@@ -162,7 +155,7 @@ Incident Count	Action
 Remediation is executed using AWS Systems Manager (SSM)
 (no SSH, no keys, no human login).
 
-##🛠️ Self-Healing Actions
+## 🛠️ Self-Healing Actions
 Restart Application
 pkill app.py
 python3 app.py &
