@@ -123,7 +123,7 @@ It:
   "incident_count": 4,
   "cooldown": true
 }
-🗄️ Incident Memory (DynamoDB)
+##🗄️ Incident Memory (DynamoDB)
 The system stores every incident:
 
 Field	Purpose
@@ -138,7 +138,7 @@ Alert suppression
 
 Progressive escalation
 
-⏳ Cooldown Suppression
+##⏳ Cooldown Suppression
 Repeated incidents within a time window are automatically suppressed.
 
 This prevents:
@@ -151,7 +151,7 @@ Unnecessary remediation
 
 Real-world SRE tools behave exactly like this.
 
-🔁 Progressive Remediation Strategy
+##🔁 Progressive Remediation Strategy
 The system heals itself gradually and safely.
 
 Incident Count	Action
@@ -162,7 +162,7 @@ Incident Count	Action
 Remediation is executed using AWS Systems Manager (SSM)
 (no SSH, no keys, no human login).
 
-🛠️ Self-Healing Actions
+##🛠️ Self-Healing Actions
 Restart Application
 pkill app.py
 python3 app.py &
