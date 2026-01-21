@@ -1,113 +1,121 @@
-🤖 AIOps — Self-Healing Cloud Infrastructure
+# 🤖 AIOps — Self-Healing Cloud Infrastructure  
+*Enterprise-Grade Event-Driven Reliability System*
 
-Enterprise-Grade Event-Driven Reliability System
+---
 
-🧱 Architecture
+## 🧱 Architecture
+
 CloudWatch Alarms
-        |
-        ▼
+|
+▼
 EventBridge
- (State Change Events)
-        |
-        ▼
+(State Change Events)
+|
+▼
 Lambda — Decision Brain
- (Correlation + Logic)
-        |
-        ▼
+(Correlation + Logic)
+|
+▼
 DynamoDB
- (Incident Memory)
-        |
-        ▼
+(Incident Memory)
+|
+▼
 AWS SSM
- (RunCommand)
-        |
-        ▼
+(RunCommand)
+|
+▼
 EC2 Instance
- (Self-Healing Actions)
+(Self-Healing Actions)
 
-⚙️ Technology Stack
-Layer	Technology
-Cloud	AWS
-Compute	EC2
-Monitoring	CloudWatch
-Event Bus	EventBridge
-Decision Engine	AWS Lambda
-Incident Memory	DynamoDB
-Remediation	AWS Systems Manager (SSM)
-Application	Flask (Python)
-📦 Repository Structure
+
+---
+
+## ⚙️ Technology Stack
+
+| Layer | Technology |
+|------|-----------|
+| Cloud | AWS |
+| Compute | EC2 |
+| Monitoring | CloudWatch |
+| Event Bus | EventBridge |
+| Decision Engine | AWS Lambda |
+| Incident Memory | DynamoDB |
+| Remediation | AWS Systems Manager (SSM) |
+| Application | Flask (Python) |
+
+---
+
+## 📦 Repository Structure
+
 aiops-self-healing-cloud/
 │
 ├── app/
-│   ├── app.py
-│   └── requirements.txt
+│ ├── app.py
+│ └── requirements.txt
 │
 ├── lambda/
-│   └── lambda_function.py
+│ └── lambda_function.py
 │
 ├── cloudwatch/
-│   └── alarms.md
+│ └── alarms.md
 │
 ├── architecture/
-│   └── architecture.png
+│ └── architecture.png
 │
 ├── screenshots/
-│   ├── lambda_logs.png
-│   ├── dynamodb_table.png
-│   └── cloudwatch_alarm.png
+│ ├── lambda_logs.png
+│ ├── dynamodb_table.png
+│ └── cloudwatch_alarm.png
 │
 └── README.md
 
-🧠 What This System Does
 
-This project implements a real AIOps-style self-healing system that:
+---
 
-Detects failures in real time
+## 🧠 What This System Does
 
-Correlates multiple signals
+This project implements a **real AIOps-style self-healing system** that:
 
-Remembers past incidents
+- Detects failures in real time  
+- Correlates multiple signals  
+- Remembers past incidents  
+- Suppresses alert noise  
+- Automatically heals infrastructure  
 
-Suppresses alert noise
+This is **not basic automation** — it is **stateful operational intelligence**.
 
-Automatically heals infrastructure
+---
 
-This is not basic automation — it is stateful operational intelligence.
-
-🔍 Detection Layer
+## 🔍 Detection Layer
 
 The system monitors:
 
-Application health via custom Flask endpoint
-
-Infrastructure health via CPU metrics
+- Application health via custom Flask endpoint  
+- Infrastructure health via CPU metrics  
 
 CloudWatch alarms:
 
-app-health-alarm
+- `app-health-alarm`  
+- `cpu-high-alarm`  
 
-cpu-high-alarm
+These alarms emit **state change events**.
 
-These alarms emit state change events.
+---
 
-🧠 Decision Layer (Lambda)
+## 🧠 Decision Layer (Lambda)
 
-Lambda acts as the brain of the system.
+Lambda acts as the **brain** of the system.
 
 It:
+- Reads alarm states  
+- Correlates signals  
+- Computes confidence  
+- Queries incident history  
+- Decides what action to take  
 
-Reads alarm states
+### Sample Output
 
-Correlates signals
-
-Computes confidence
-
-Queries incident history
-
-Decides what action to take
-
-Sample output:
-
+```json
 {
   "signals": {"app": true, "cpu": false},
   "confidence": 1,
@@ -115,16 +123,13 @@ Sample output:
   "incident_count": 4,
   "cooldown": true
 }
-
 🗄️ Incident Memory (DynamoDB)
-
 The system stores every incident:
 
 Field	Purpose
 incident_id	Alarm name
 last_seen	Timestamp
 count	Number of occurrences
-
 This enables:
 
 Historical context
@@ -134,7 +139,6 @@ Alert suppression
 Progressive escalation
 
 ⏳ Cooldown Suppression
-
 Repeated incidents within a time window are automatically suppressed.
 
 This prevents:
@@ -148,7 +152,6 @@ Unnecessary remediation
 Real-world SRE tools behave exactly like this.
 
 🔁 Progressive Remediation Strategy
-
 The system heals itself gradually and safely.
 
 Incident Count	Action
@@ -156,7 +159,6 @@ Incident Count	Action
 2	SUPPRESS
 3	Restart Application
 4	Reboot EC2 Instance
-
 Remediation is executed using AWS Systems Manager (SSM)
 (no SSH, no keys, no human login).
 
@@ -164,11 +166,8 @@ Remediation is executed using AWS Systems Manager (SSM)
 Restart Application
 pkill app.py
 python3 app.py &
-
 Reboot Instance
 sudo reboot
-
-
 These commands are executed remotely via:
 
 AWS SSM RunCommand
